@@ -1,0 +1,16 @@
+name = "chart-img-discord-bot"
+
+main = "src/server.js"
+compatibility_date = "2022-06-21"
+
+[vars]
+DEBUG = true
+DISCORD_APPLICATION_ID = ""
+DISCORD_PUBLIC_KEY = ""
+DISCORD_TOKEN = ""
+
+[env.production.vars]
+DEBUG = false
+DISCORD_APPLICATION_ID = ""
+DISCORD_PUBLIC_KEY = ""
+DISCORD_TOKEN = ""

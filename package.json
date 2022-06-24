@@ -1,0 +1,20 @@
+{
+  "name": "cf-chart-img-discord-bot",
+  "version": "0.1.0",
+  "description": "chart-img discord bot with serverless cloudflare workers",
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev --local --ip 0.0.0.0",
+    "publish": "wrangler publish",
+    "publish:production": "wrangler publish --env production",
+    "prettier": "prettier --write '**/*.{js,json,md}'"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "itty-router": "^2.6.1",
+    "serverless-cloudflare-workers": "^1.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}
