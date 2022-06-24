@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "discord-interactions": "^3.2.0",
     "itty-router": "^2.6.1",
     "serverless-cloudflare-workers": "^1.2.0"
   },
