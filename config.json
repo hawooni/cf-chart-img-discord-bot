@@ -1,4 +1,32 @@
 {
+  "price": {
+    "intervals": ["1d", "1M", "3M", "1Y", "5Y", "all"],
+    "default": {
+      "symbol": "BITSTAMP:BTCUSD",
+      "interval": "1M",
+      "theme": "dark",
+      "width": 500,
+      "height": 300
+    },
+    "inputs": [
+      {
+        "text": "BTCUSDT",
+        "symbol": "BINANCE:BTCUSDT"
+      },
+      {
+        "text": "ETHUSDT",
+        "symbol": "BINANCE:ETHUSDT"
+      },
+      {
+        "text": "BNBUSDT",
+        "symbol": "BINANCE:BNBUSDT"
+      },
+      {
+        "text": "ADAUSDT",
+        "symbol": "BINANCE:ADAUSDT"
+      }
+    ]
+  },
   "message": {
     "error": "Something went wrong please try again later."
   }
