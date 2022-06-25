@@ -1,37 +1,48 @@
-import { InteractionResponseType, InteractionType, verifyKey } from 'discord-interactions'
+import { InteractionResponseType, InteractionType, InteractionResponseFlags, verifyKey } from 'discord-interactions'
+import { patchPriceInteraction } from '../service/discord'
+import { getInviteURL } from '../helper/discord'
 import { JsonResponse } from '../helper/response'
-import { appCommand } from '../service/discord'
-import { message as MESSAGE } from '../../config'
+import { INVITE, PRICE, CHART } from '../helper/commands'
 
-export const webhook = (req, env) => {
-  const { DEBUG } = env
+export const webhook = async (req, env, event) => {
+  const { DEBUG, DISCORD_APPLICATION_ID } = env
+  const { type, data, token } = await req.json()
 
-  return req
-    .json()
-    .then((payload) => {
-      const { type } = payload
+  if (type === InteractionType.PING) {
+    DEBUG && console.log(':: debug :: discord :: webhook payload type :: PING')
+    return new JsonResponse({ type: InteractionResponseType.PONG })
+  }
 
-      if (type === InteractionType.PING) {
-        DEBUG && console.log(':: debug :: discord :: webhook payload type :: PING')
-        return new JsonResponse({ type: InteractionResponseType.PONG })
-      }
+  if (type === InteractionType.APPLICATION_COMMAND) {
+    DEBUG && console.log(':: debug :: discord :: webhook payload type :: APPLICATION_COMMAND')
 
-      if (type === InteractionType.APPLICATION_COMMAND) {
-        DEBUG && console.log(':: debug :: discord :: webhook payload type :: APPLICATION_COMMAND')
-        return appCommand(payload, env)
-      }
+    if (data.name === INVITE.name) {
+      DEBUG && console.log(':: debug :: discord :: webhook payload type :: /invite')
+      return new JsonResponse({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: getInviteURL(DISCORD_APPLICATION_ID),
+          flags: InteractionResponseFlags.EPHEMERAL,
+        },
+      })
+    }
 
-      DEBUG && console.log(`:: debug :: discord :: webhook payload type (${type}) is not supported`)
-      return new JsonResponse({ error: 'The payload type is not supported.' }, { status: 400 })
-    })
-    .catch((error) => {
-      if (DEBUG) {
-        throw error
-      } else {
-        console.log(error)
-        return new JsonResponse({ error: MESSAGE.error }, { status: 500 })
-      }
-    })
+    if (data.name === PRICE.name) {
+      DEBUG && console.log(':: debug :: discord :: webhook payload type :: /price')
+      event.waitUntil(patchPriceInteraction(data, token, env)) // patch deferred message with the source
+      return new JsonResponse({
+        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+      })
+    }
+
+    if (data.name === CHART.name) {
+      DEBUG && console.log(':: debug :: discord :: webhook payload type :: /chart')
+      // todo: implement chart response
+    }
+  }
+
+  DEBUG && console.log(`:: debug :: discord :: webhook payload type (${type}) is not supported`)
+  return new JsonResponse({ error: 'The payload type is not supported.' }, { status: 400 })
 }
 
 export const verifySignature = async (req, env) => {
@@ -46,9 +57,9 @@ export const verifySignature = async (req, env) => {
       const body = await req.clone().arrayBuffer()
 
       if (verifyKey(body, signature, timestamp, DISCORD_PUBLIC_KEY)) {
-        console.log(':: debug :: discord :: webhook payload signature verifyKey success')
+        DEBUG && console.log(':: debug :: discord :: webhook payload signature verifyKey success')
       } else {
-        console.log(':: error :: discord :: webhook payload signature verifyKey failed')
+        DEBUG && console.log(':: error :: discord :: webhook payload signature verifyKey failed')
         return new JsonResponse({ error: 'The server signature verification failed.' }, { status: 401 })
       }
     } else {

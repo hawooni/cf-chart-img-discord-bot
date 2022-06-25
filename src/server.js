@@ -9,7 +9,7 @@ router.post('/webhook/discord', verifySignature, webhook)
 router.all('/*', () => new JsonResponse({ message: 'Route not found!' }, { status: 404 }))
 
 export default {
-  async fetch(req, env) {
-    return router.handle(req, env)
+  async fetch(req, env, event) {
+    return router.handle(req, env, event)
   },
 }

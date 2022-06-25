@@ -5,7 +5,7 @@ const BASE_URL = 'https://discord.com/api/v10'
  * @returns {String}
  */
 export const getInviteURL = (appId) => {
-  return `https://discord.com/oauth2/authorize?client_id=${appId}&scope=applications.commands`
+  return `https://discord.com/oauth2/authorize?client_id=${appId}&permissions=2147485696&scope=bot%20applications.commands`
 }
 
 /**

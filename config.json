@@ -10,24 +10,54 @@
     },
     "inputs": [
       {
-        "text": "BTCUSDT",
+        "text": "Bitcoin (BTC)",
         "symbol": "BINANCE:BTCUSDT"
       },
       {
-        "text": "ETHUSDT",
+        "text": "Ethereum (ETH)",
         "symbol": "BINANCE:ETHUSDT"
       },
       {
-        "text": "BNBUSDT",
+        "text": "Binance Coin (BNB)",
         "symbol": "BINANCE:BNBUSDT"
       },
       {
-        "text": "ADAUSDT",
+        "text": "Ripple (XRP)",
+        "symbol": "BINANCE:XRPUSDT"
+      },
+      {
+        "text": "Cardano (ADA)",
         "symbol": "BINANCE:ADAUSDT"
+      },
+      {
+        "text": "Solana (SOL)",
+        "symbol": "BINANCE:SOLUSDT"
+      },
+      {
+        "text": "Polkadot (DOT)",
+        "symbol": "BINANCE:DOTUSDT"
+      },
+      {
+        "text": "Dogecoin (DOGE)",
+        "symbol": "BINANCE:DOGEUSDT"
+      },
+      {
+        "text": "Shiba Inu (SHIB)",
+        "symbol": "BINANCE:SHIBUSDT"
+      },
+      {
+        "text": "Tron (TRX)",
+        "symbol": "BINANCE:TRXUSDT"
+      },
+      {
+        "text": "Avalanche (AVAX)",
+        "symbol": "BINANCE:AVAXUSDT"
       }
     ]
   },
   "message": {
+    "invalid": "Invalid command please try /example.",
+    "rateLimit": "Too many request. Please try again later.",
     "error": "Something went wrong please try again later."
   }
 }
