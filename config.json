@@ -98,10 +98,10 @@
       }
     ]
   },
-  "sources": [
+  "presets": [
     {
       "name": "crypto",
-      "description": "Tradingview Crypto Prices",
+      "description": "Tradingview Preset Crypto",
       "inputs": [
         {
           "name": "Bitcoin (BTC/USDT)",
@@ -151,7 +151,7 @@
     },
     {
       "name": "stock",
-      "description": "Tradingview Stock Prices",
+      "description": "Tradingview Preset Stock",
       "inputs": [
         {
           "name": "APPLE (AAPL)",
@@ -225,7 +225,7 @@
     },
     {
       "name": "forex",
-      "description": "Tradingview Forex Prices",
+      "description": "Tradingview Preset Forex",
       "inputs": [
         {
           "name": "US DOLLAR/CANADIAN DOLLAR (USD/CAD)",

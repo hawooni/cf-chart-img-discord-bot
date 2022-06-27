@@ -65,9 +65,9 @@ export const patchChartInteraction = async (data, token, env) => {
  * @returns {Object}
  */
 function getPriceQuery(data) {
-  const optSymbol = getDataSourceOpName(data, 'symbol')
-  const optInterval = getDataSourceOpName(data, 'interval')
-  const optTheme = getDataSourceOpName(data, 'theme')
+  const optSymbol = getDataPresetOptName(data, 'symbol')
+  const optInterval = getDataPresetOptName(data, 'interval')
+  const optTheme = getDataPresetOptName(data, 'theme')
 
   return Object.assign(
     {},
@@ -83,11 +83,11 @@ function getPriceQuery(data) {
  * @returns {object}
  */
 function getChartQuery(data) {
-  const optSymbol = getDataSourceOpName(data, 'symbol')
-  const optInterval = getDataSourceOpName(data, 'interval')
-  const optStudies = getDataSourceOpName(data, 'studies')
-  const optStyle = getDataSourceOpName(data, 'style')
-  const optTheme = getDataSourceOpName(data, 'theme')
+  const optSymbol = getDataPresetOptName(data, 'symbol')
+  const optInterval = getDataPresetOptName(data, 'interval')
+  const optStudies = getDataPresetOptName(data, 'studies')
+  const optStyle = getDataPresetOptName(data, 'style')
+  const optTheme = getDataPresetOptName(data, 'theme')
 
   return Object.assign(
     {},
@@ -121,11 +121,11 @@ function getChartCaption(query) {
  * @param {String} optName
  * @returns {String|null}
  */
-function getDataSourceOpName(data, optName) {
-  const source = data.options?.find((opt) => opt.name === 'source')?.options[0] // crypto, stock, forex, ...
+function getDataPresetOptName(data, optName) {
+  const preset = data.options?.find((opt) => opt.name === 'preset')?.options[0] // crypto, stock, forex, ...
 
-  if (source) {
-    return source.options.find((opt) => opt.name === optName) || null
+  if (preset) {
+    return preset.options.find((opt) => opt.name === optName) || null
   }
   return null
 }

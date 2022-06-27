@@ -29,21 +29,21 @@ putRegisterCommands('commands', [INVITE, PRICE, CHART]).catch((error) => {
 function setupConfigPrice() {
   PRICE.options = [
     {
-      name: 'source',
-      description: 'Tradingview Price Source',
+      name: 'preset',
+      description: 'Tradingview Price Preset',
       type: 2,
-      options: config.sources.map((source) => {
+      options: config.presets.map((preset) => {
         return {
-          name: source.name,
-          description: source.description,
+          name: preset.name,
+          description: preset.description,
           type: 1,
           options: [
             {
               name: 'symbol',
-              description: 'Tradingview price symbol',
+              description: 'Tradingview Price symbols',
               type: 3,
               required: true,
-              choices: source.inputs.map((input) => {
+              choices: preset.inputs.map((input) => {
                 return {
                   name: input.name,
                   value: input.symbol,
@@ -52,7 +52,7 @@ function setupConfigPrice() {
             },
             {
               name: 'interval',
-              description: 'Tradingview price interval',
+              description: 'Tradingview Price Intervals',
               type: 3,
               required: false,
               choices: config.price.intervals.map((interval) => {
@@ -64,7 +64,7 @@ function setupConfigPrice() {
             },
             {
               name: 'theme',
-              description: 'Tradingview price theme',
+              description: 'Tradingview Price Themes',
               type: 3,
               required: false,
               choices: THEMES,
@@ -82,13 +82,13 @@ function setupConfigPrice() {
 function setupConfigChart() {
   CHART.options = [
     {
-      name: 'source',
-      description: 'Tradingview Chart Source',
+      name: 'preset',
+      description: 'Tradingview Chart Preset',
       type: 2,
-      options: config.sources.map((source) => {
+      options: config.presets.map((preset) => {
         return {
-          name: source.name,
-          description: source.description,
+          name: preset.name,
+          description: preset.description,
           type: 1,
           options: [
             {
@@ -96,7 +96,7 @@ function setupConfigChart() {
               description: 'Tradingview Chart Symbols',
               type: 3,
               required: true,
-              choices: source.inputs.map((input) => {
+              choices: preset.inputs.map((input) => {
                 return {
                   name: input.name,
                   value: input.symbol,
