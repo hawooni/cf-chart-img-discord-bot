@@ -56,7 +56,7 @@ Create secret environment variables using wrangler secret.
 $ wrangler secret put DISCORD_TOKEN --env production
  ⛅️ wrangler 2.0.15
 --------------------
-Enter a secret value: **********************************************************************
+Enter a secret value: ****************************************
 🌀 Creating the secret for script chart-img-discord-bot-production
 ✨ Success! Uploaded secret DISCORD_TOKEN
 ```
@@ -129,12 +129,10 @@ Set your Interactions Endpoint URL `https://chart-img-discord-bot-production.YOU
 
 Slash Commands are the new, exciting way to build and interact with bots on Discord. With Slash Commands, all you have to do is type `/` and you're ready to use your preset commands.
 
-`/invite`
-
-`/price preset crypto`
-`/price preset stock`
-`/price preset forex`
-
-`/chart preset crypto`
-`/chart preset stock`
-`/chart preset forex`
+- `/invite`
+- `/price preset crypto`
+- `/price preset stock`
+- `/price preset forex`
+- `/chart preset crypto`
+- `/chart preset stock`
+- `/chart preset forex`
