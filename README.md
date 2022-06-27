@@ -122,3 +122,19 @@ Published chart-img-discord-bot-production (0.22 sec)
 Set your Interactions Endpoint URL `https://chart-img-discord-bot-production.YOUR_ID.workers.dev` from the previous step.
 
 ![general_info](doc/general_info.png?raw=true)
+
+## Features
+
+### Slash Commands
+
+Slash Commands are the new, exciting way to build and interact with bots on Discord. With Slash Commands, all you have to do is type `/` and you're ready to use your preset commands.
+
+`/invite`
+
+`/price preset crypto`
+`/price preset stock`
+`/price preset forex`
+
+`/chart preset crypto`
+`/chart preset stock`
+`/chart preset forex`
