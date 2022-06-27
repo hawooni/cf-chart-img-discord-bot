@@ -4,7 +4,7 @@ import { verifySignature, webhook } from './controller/discord'
 
 const router = Router()
 
-router.post('/webhook/discord', verifySignature, webhook)
+router.post('/', verifySignature, webhook)
 
 router.all('/*', () => new JsonResponse({ message: 'Route not found!' }, { status: 404 }))
 
