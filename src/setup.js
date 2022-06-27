@@ -2,11 +2,11 @@ import fs from 'fs'
 import toml from 'toml'
 import axios from 'axios'
 
-import { INVITE, PRICE, CHART } from '../src/helper/commands.js'
+import { INVITE, PRICE, CHART } from '../src/enum/commands.js'
 
 import config from '../config.json' assert { type: 'json' }
 
-const env = process.argv[3] // eg. production | undefined
+const env = process.argv[3] // eg. node src/setup.js --env production | undefined
 const wrangler = toml.parse(fs.readFileSync('./wrangler.toml', 'utf-8'))
 
 const { DISCORD_APPLICATION_ID, DISCORD_TOKEN } = env ? wrangler.env[env].vars : wrangler.vars
@@ -34,7 +34,7 @@ function setupConfigPrice(price) {
       required: false,
       choices: config.price.inputs.map((input) => {
         return {
-          name: input.text,
+          name: input.name,
           value: input.symbol,
         }
       }),

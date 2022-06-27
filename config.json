@@ -10,47 +10,47 @@
     },
     "inputs": [
       {
-        "text": "Bitcoin (BTC)",
+        "name": "Bitcoin (BTC)",
         "symbol": "BINANCE:BTCUSDT"
       },
       {
-        "text": "Ethereum (ETH)",
+        "name": "Ethereum (ETH)",
         "symbol": "BINANCE:ETHUSDT"
       },
       {
-        "text": "Binance Coin (BNB)",
+        "name": "Binance Coin (BNB)",
         "symbol": "BINANCE:BNBUSDT"
       },
       {
-        "text": "Ripple (XRP)",
+        "name": "Ripple (XRP)",
         "symbol": "BINANCE:XRPUSDT"
       },
       {
-        "text": "Cardano (ADA)",
+        "name": "Cardano (ADA)",
         "symbol": "BINANCE:ADAUSDT"
       },
       {
-        "text": "Solana (SOL)",
+        "name": "Solana (SOL)",
         "symbol": "BINANCE:SOLUSDT"
       },
       {
-        "text": "Polkadot (DOT)",
+        "name": "Polkadot (DOT)",
         "symbol": "BINANCE:DOTUSDT"
       },
       {
-        "text": "Dogecoin (DOGE)",
+        "name": "Dogecoin (DOGE)",
         "symbol": "BINANCE:DOGEUSDT"
       },
       {
-        "text": "Shiba Inu (SHIB)",
+        "name": "Shiba Inu (SHIB)",
         "symbol": "BINANCE:SHIBUSDT"
       },
       {
-        "text": "Tron (TRX)",
+        "name": "Tron (TRX)",
         "symbol": "BINANCE:TRXUSDT"
       },
       {
-        "text": "Avalanche (AVAX)",
+        "name": "Avalanche (AVAX)",
         "symbol": "BINANCE:AVAXUSDT"
       }
     ]
