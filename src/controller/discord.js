@@ -2,7 +2,7 @@ import { InteractionResponseType, InteractionType, InteractionResponseFlags, ver
 import { patchPriceInteraction } from '../service/discord'
 import { getInviteURL } from '../helper/discord'
 import { JsonResponse } from '../helper/response'
-import { INVITE, PRICE, CHART } from '../helper/commands'
+import { INVITE, PRICE, CHART } from '../enum/commands'
 
 export const webhook = async (req, env, event) => {
   const { DEBUG, DISCORD_APPLICATION_ID } = env
