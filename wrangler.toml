@@ -6,13 +6,15 @@ compatibility_date = "2022-06-21"
 node_compat = true
 
 [vars]
+DEBUG = true
 DISCORD_APPLICATION_ID = ""
 DISCORD_PUBLIC_KEY = ""
-DISCORD_TOKEN = ""
-CHART_IMG_API_KEY = ""
+#DISCORD_TOKEN
+#CHART_IMG_API_KEY
 
 [env.production.vars]
+DEBUG = false
 DISCORD_APPLICATION_ID = ""
 DISCORD_PUBLIC_KEY = ""
-DISCORD_TOKEN = ""
-CHART_IMG_API_KEY = ""
+#DISCORD_TOKEN
+#CHART_IMG_API_KEY
