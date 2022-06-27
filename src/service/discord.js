@@ -1,6 +1,6 @@
 import { InteractionResponseType } from 'discord-interactions'
 import { patchInteractionJson, patchInteractionFormData } from '../helper/discord'
-import { price as PRICE, message as MESSAGE } from '../../config'
+import { price as PRICE, chart as CHART, message as MESSAGE } from '../../config'
 import {
   getTradingViewMiniChart as getPriceImage,
   getTradingViewAdvancedChart as getChartImage,
@@ -35,13 +35,39 @@ export const patchPriceInteraction = async (data, token, env) => {
 
 /**
  * @param {Object} data
+ * @param {String} token
+ * @param {Object} env
+ * @returns {Promise}
+ */
+export const patchChartInteraction = async (data, token, env) => {
+  const { DISCORD_APPLICATION_ID, CHART_IMG_API_KEY } = env
+
+  const query = getChartQuery(data)
+  const resImage = await getChartImage(query, CHART_IMG_API_KEY)
+
+  if (resImage.status === 200) {
+    return patchInteractionAttachImage(
+      DISCORD_APPLICATION_ID,
+      token,
+      new Blob([await resImage.arrayBuffer()], { type: 'application/octet-stream' }),
+      getChartCaption(query)
+    )
+  } else {
+    return patchInteractionJson(DISCORD_APPLICATION_ID, token, {
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      content: getErrorMessage(resImage.status, await resImage.json()),
+    })
+  }
+}
+
+/**
+ * @param {Object} data
  * @returns {Object}
  */
 function getPriceQuery(data) {
-  const source = data.options?.find((opt) => opt.name === 'source')?.options[0] // crypto, stock, ...
-  const optSymbol = source.options.find((opt) => opt.name === 'symbol')
-  const optInterval = source.options.find((opt) => opt.name === 'interval')
-  const optTheme = source.options.find((opt) => opt.name === 'theme')
+  const optSymbol = getDataSourceOpName(data, 'symbol')
+  const optInterval = getDataSourceOpName(data, 'interval')
+  const optTheme = getDataSourceOpName(data, 'theme')
 
   return Object.assign(
     {},
@@ -53,11 +79,55 @@ function getPriceQuery(data) {
 }
 
 /**
+ * @param {Object} data
+ * @returns {object}
+ */
+function getChartQuery(data) {
+  const optSymbol = getDataSourceOpName(data, 'symbol')
+  const optInterval = getDataSourceOpName(data, 'interval')
+  const optStudies = getDataSourceOpName(data, 'studies')
+  const optStyle = getDataSourceOpName(data, 'style')
+  const optTheme = getDataSourceOpName(data, 'theme')
+
+  return Object.assign(
+    {},
+    CHART.default,
+    optSymbol ? { symbol: optSymbol.value } : null,
+    optInterval ? { interval: optInterval.value } : null,
+    optStudies ? { studies: [optStudies.value.split(';')] } : null,
+    optStyle ? { style: optStyle.value } : null,
+    optTheme ? { theme: optTheme.value } : null
+  )
+}
+
+/**
  * @param {Object} query
  * @returns {String}
  */
 function getPriceCaption(query) {
   return `${query.symbol.toUpperCase()} ${query.interval}`
+}
+
+/**
+ * @param {Object} query
+ * @returns {String}
+ */
+function getChartCaption(query) {
+  return `${query.symbol.toUpperCase()} ${query.interval} ${query.studies} ${query.style} ${query.theme}`
+}
+
+/**
+ * @param {Object} data
+ * @param {String} optName
+ * @returns {String|null}
+ */
+function getDataSourceOpName(data, optName) {
+  const source = data.options?.find((opt) => opt.name === 'source')?.options[0] // crypto, stock, forex, ...
+
+  if (source) {
+    return source.options.find((opt) => opt.name === optName) || null
+  }
+  return null
 }
 
 /**

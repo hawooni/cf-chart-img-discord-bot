@@ -8,53 +8,143 @@
       "height": 300
     }
   },
+  "chart": {
+    "intervals": ["1m", "3m", "5m", "15m", "30m", "45m", "1h", "2h", "3h", "4h", "1d", "1w"],
+    "default": {
+      "interval": "1d",
+      "theme": "dark",
+      "studies": ["EMA:50", "EMA:200", "VOL", "RSI"],
+      "style": "candle",
+      "timezone": "Etc/UTC",
+      "width": 800,
+      "height": 600
+    },
+    "studies": [
+      {
+        "name": "Bollinger Bands (BB)",
+        "value": "BB"
+      },
+      {
+        "name": "Chaikin Money Flow (CMF)",
+        "value": "CMF"
+      },
+      {
+        "name": "Commodity Channel Index (CCI)",
+        "value": "CCI"
+      },
+      {
+        "name": "Directional Movement Index (DMI)",
+        "value": "DMI"
+      },
+      {
+        "name": "Exponential Moving Average (EMA)",
+        "value": "EMA"
+      },
+      {
+        "name": "Ichimoku Cloud (IC)",
+        "value": "IC"
+      },
+      {
+        "name": "Moving Average Convergence Divergence (MACD)",
+        "value": "MACD"
+      },
+      {
+        "name": "Momentum (MOM)",
+        "value": "MOM"
+      },
+      {
+        "name": "Money Flow Index (MFI)",
+        "value": "MFI"
+      },
+      {
+        "name": "Moving Average (MA)",
+        "value": "MA"
+      },
+      {
+        "name": "On Balance Volume (OBV)",
+        "value": "OBV"
+      },
+      {
+        "name": "Pivot Points High Low (PPHL)",
+        "value": "PPHL"
+      },
+      {
+        "name": "Relative Strength Index (RSI)",
+        "value": "RSI"
+      },
+      {
+        "name": "Parabolic SAR (SAR)",
+        "value": "SAR"
+      },
+      {
+        "name": "Stochastic (STOCH)",
+        "value": "STOCH"
+      },
+      {
+        "name": "Stochastic RSI (STOCHRSI)",
+        "value": "STOCHRSI"
+      },
+      {
+        "name": "Triple EMA (TEMA)",
+        "value": "TEMA"
+      },
+      {
+        "name": "Triple Exponential Average (TRIX)",
+        "value": "TRIX"
+      },
+      {
+        "name": "Ultimate Oscillator (UO)",
+        "value": "UO"
+      }
+    ]
+  },
   "sources": [
     {
       "name": "crypto",
       "description": "Tradingview Crypto Prices",
       "inputs": [
         {
-          "name": "Bitcoin (BINANCE:BTCUSDT)",
+          "name": "Bitcoin (BTC/USDT)",
           "symbol": "BINANCE:BTCUSDT"
         },
         {
-          "name": "Ethereum (BINANCE:ETHUSDT)",
+          "name": "Ethereum (ETH/USDT)",
           "symbol": "BINANCE:ETHUSDT"
         },
         {
-          "name": "Binance Coin (BINANCE:BNBUSDT)",
+          "name": "Binance Coin (BNB/USDT)",
           "symbol": "BINANCE:BNBUSDT"
         },
         {
-          "name": "Ripple (BINANCE:XRPUSDT)",
+          "name": "Ripple (XRP/USDT)",
           "symbol": "BINANCE:XRPUSDT"
         },
         {
-          "name": "Cardano (BINANCE:ADAUSDT)",
+          "name": "Cardano (ADA/USDT)",
           "symbol": "BINANCE:ADAUSDT"
         },
         {
-          "name": "Solana (BINANCE:SOLUSDT)",
+          "name": "Solana (SOL/USDT)",
           "symbol": "BINANCE:SOLUSDT"
         },
         {
-          "name": "Polkadot (BINANCE:DOTUSDT)",
+          "name": "Polkadot (DOT/USDT)",
           "symbol": "BINANCE:DOTUSDT"
         },
         {
-          "name": "Dogecoin (BINANCE:DOGEUSDT)",
+          "name": "Dogecoin (DOGE/USDT)",
           "symbol": "BINANCE:DOGEUSDT"
         },
         {
-          "name": "Shiba Inu (BINANCE:SHIBUSDT)",
+          "name": "Shiba Inu (SHIB/USDT)",
           "symbol": "BINANCE:SHIBUSDT"
         },
         {
-          "name": "Tron (BINANCE:TRXUSDT)",
+          "name": "Tron (TRX/USDT)",
           "symbol": "BINANCE:TRXUSDT"
         },
         {
-          "name": "Avalanche",
+          "name": "Avalanche (AVAX/USDT)",
           "symbol": "BINANCE:AVAXUSDT"
         }
       ]
@@ -64,104 +154,72 @@
       "description": "Tradingview Stock Prices",
       "inputs": [
         {
-          "name": "APPLE INC. (NASDAQ:AAPL)",
+          "name": "APPLE (AAPL)",
           "symbol": "NASDAQ:AAPL"
         },
         {
-          "name": "SPDR S&P 500 ETF TRUST (AMEX:SPY)",
+          "name": "SPDR S&P 500 ETF TRUST (SPY)",
           "symbol": "AMEX:SPY"
         },
         {
-          "name": "TESLA, INC. (NASDAQ:TSLA)",
+          "name": "TESLA (TSLA)",
           "symbol": "NASDAQ:TSLA"
         },
         {
-          "name": "INVESCO QQQ TRUST, SERIES 1 (NASDAQ:QQQ)",
-          "symbol": "NASDAQ:QQQ"
-        },
-        {
-          "name": "AMAZON.COM, INC. (NASDAQ:AMZN)",
+          "name": "AMAZON (AMZN)",
           "symbol": "NASDAQ:AMZN"
         },
         {
-          "name": "NVIDIA CORPORATION (NASDAQ:NVDA)",
+          "name": "NVIDIA (NVDA)",
           "symbol": "NASDAQ:NVDA"
         },
         {
-          "name": "META PLATFORMS, INC. (NASDAQ:META)",
+          "name": "META PLATFORMS (META)",
           "symbol": "NASDAQ:META"
         },
         {
-          "name": "ADVANCED MICRO DEVICES, INC. (NASDAQ:AMD)",
+          "name": "ADVANCED MICRO DEVICES (AMD)",
           "symbol": "NASDAQ:AMD"
         },
         {
-          "name": "MICROSOFT CORPORATION (NASDAQ:MSFT)",
+          "name": "MICROSOFT (MSFT)",
           "symbol": "NASDAQ:MSFT"
         },
         {
-          "name": "ALIBABA GROUP HOLDING LIMITED (NYSE:BABA)",
+          "name": "ALIBABA (BABA)",
           "symbol": "NYSE:BABA"
         },
         {
-          "name": "NETFLIX, INC. (NASDAQ:NFLX)",
+          "name": "NETFLIX (NFLX)",
           "symbol": "NASDAQ:NFLX"
         },
         {
-          "name": "NIO INC. (NYSE:NIO)",
-          "symbol": "NYSE:NIO"
-        },
-        {
-          "name": "AMC ENTERTAINMENT HOLDINGS, INC. (NYSE:AMC)",
+          "name": "AMC ENTERTAINMENT (AMC)",
           "symbol": "NYSE:AMC"
         },
         {
-          "name": "PROSHARES ULTRAPRO QQQ (NASDAQ:TQQQ)",
-          "symbol": "NASDAQ:TQQQ"
-        },
-        {
-          "name": "GAMESTOP CORPORATION (NYSE:GME)",
+          "name": "GAMESTOP (GME)",
           "symbol": "NYSE:GME"
         },
         {
-          "name": "COINBASE GLOBAL, INC. (NASDAQ:COIN)",
+          "name": "COINBASE (COIN)",
           "symbol": "NASDAQ:COIN"
         },
         {
-          "name": "ALPHABET INC. (NASDAQ:GOOGL)",
-          "symbol": "NASDAQ:GOOGL"
-        },
-        {
-          "name": "ALPHABET INC. (NASDAQ:GOOG)",
+          "name": "ALPHABET (GOOG)",
           "symbol": "NASDAQ:GOOG"
         },
         {
-          "name": "ISHARES RUSSELL 2000 ETF (AMEX:IWM)",
-          "symbol": "AMEX:IWM"
-        },
-        {
-          "name": "PALANTIR TECHNOLOGIES INC. (NYSE:PLTR)",
-          "symbol": "NYSE:PLTR"
-        },
-        {
-          "name": "SHOPIFY INC. (NYSE:SHOP)",
+          "name": "SHOPIFY (SHOP)",
           "symbol": "NYSE:SHOP"
         },
         {
-          "name": "PAYPAL HOLDINGS, INC. (NASDAQ:PYPL)",
+          "name": "PAYPAL (PYPL)",
           "symbol": "NASDAQ:PYPL"
         },
         {
-          "name": "BOEING COMPANY (NYSE:BA)",
+          "name": "BOEING (BA)",
           "symbol": "NYSE:BA"
-        },
-        {
-          "name": "EXXON MOBIL CORPORATION (NYSE:XOM)",
-          "symbol": "NYSE:XOM"
-        },
-        {
-          "name": "BLOCK, INC. (NYSE:SQ)",
-          "symbol": "NYSE:SQ"
         }
       ]
     },
@@ -170,44 +228,28 @@
       "description": "Tradingview Forex Prices",
       "inputs": [
         {
-          "name": "EURO FX/U.S. DOLLAR (FX:EURUSD)",
-          "symbol": "FX:EURUSD"
-        },
-        {
-          "name": "U.S. DOLLAR/JAPANESE YEN (FX:USDJPY)",
-          "symbol": "FX:USDJPY"
-        },
-        {
-          "name": "BRITISH POUND/U.S. DOLLAR (FX:GBPUSD)",
-          "symbol": "FX:GBPUSD"
-        },
-        {
-          "name": "BRITISH POUND/JAPANESE YEN (FX:GBPJPY)",
-          "symbol": "FX:GBPJPY"
-        },
-        {
-          "name": "AUSTRALIAN DOLLAR/U.S. DOLLAR (FX:AUDUSD)",
-          "symbol": "FX:AUDUSD"
-        },
-        {
-          "name": "U.S. DOLLAR/CANADIAN DOLLAR (FX:USDCAD)",
+          "name": "US DOLLAR/CANADIAN DOLLAR (USD/CAD)",
           "symbol": "FX:USDCAD"
         },
         {
-          "name": "EURO FX/JAPANESE YEN (FX:EURJPY)",
-          "symbol": "FX:EURJPY"
+          "name": "US DOLLAR/JAPANESE YEN (USD/JPY)",
+          "symbol": "FX:USDJPY"
         },
         {
-          "name": "U.S. DOLLAR/SWISS FRANC (FX:USDCHF)",
-          "symbol": "FX:USDCHF"
+          "name": "US DOLLAR/CHINESE YUAN (USD/CNH)",
+          "symbol": "FX:USDCNH"
         },
         {
-          "name": "AUSTRALIAN DOLLAR/JAPANESE YEN (FX:AUDJPY)",
-          "symbol": "FX:AUDJPY"
+          "name": "BRITISH POUND/US DOLLAR (GBP/USD)",
+          "symbol": "FX:GBPUSD"
         },
         {
-          "name": "U.S. DOLLAR/TURKISH NEW LIRA (FX:USDTRY)",
-          "symbol": "FX:USDTRY"
+          "name": "BRITISH POUND/CANADIAN DOLLAR (GBP/CAD)",
+          "symbol": "FX:GBPCAD"
+        },
+        {
+          "name": "BRITISH POUND/JAPANESE YEN (GBP/JPY)",
+          "symbol": "FX:GBPJPY"
         }
       ]
     }

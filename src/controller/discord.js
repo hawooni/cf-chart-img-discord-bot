@@ -1,5 +1,5 @@
 import { InteractionResponseType, InteractionType, InteractionResponseFlags, verifyKey } from 'discord-interactions'
-import { patchPriceInteraction } from '../service/discord'
+import { patchPriceInteraction, patchChartInteraction } from '../service/discord'
 import { getInviteURL } from '../helper/discord'
 import { JsonResponse } from '../helper/response'
 import { INVITE, PRICE, CHART } from '../enum/commands'
@@ -30,6 +30,7 @@ export const webhook = async (req, env, event) => {
     if (data.name === PRICE.name) {
       DEBUG && console.log(':: debug :: discord :: webhook payload type :: /price')
       event.waitUntil(patchPriceInteraction(data, token, env)) // patch deferred message with the source
+
       return new JsonResponse({
         type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
       })
@@ -37,7 +38,11 @@ export const webhook = async (req, env, event) => {
 
     if (data.name === CHART.name) {
       DEBUG && console.log(':: debug :: discord :: webhook payload type :: /chart')
-      // todo: implement chart response
+      event.waitUntil(patchChartInteraction(data, token, env)) // patch deferred message with the source
+
+      return new JsonResponse({
+        type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+      })
     }
   }
 
