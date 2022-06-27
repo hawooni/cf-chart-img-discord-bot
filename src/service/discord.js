@@ -6,6 +6,12 @@ import {
   getTradingViewAdvancedChart as getChartImage,
 } from '../helper/chartimg'
 
+/**
+ * @param {Object} data
+ * @param {String} token
+ * @param {Object} env
+ * @returns {Promise}
+ */
 export const patchPriceInteraction = async (data, token, env) => {
   const { DISCORD_APPLICATION_ID, CHART_IMG_API_KEY } = env
 
@@ -32,9 +38,10 @@ export const patchPriceInteraction = async (data, token, env) => {
  * @returns {Object}
  */
 function getPriceQuery(data) {
-  const optSymbol = data.options?.find((opt) => opt.name === 'symbol')
-  const optInterval = data.options?.find((opt) => opt.name === 'interval')
-  const optTheme = data.options?.find((opt) => opt.name === 'theme')
+  const source = data.options?.find((opt) => opt.name === 'source')?.options[0] // crypto, stock, ...
+  const optSymbol = source.options.find((opt) => opt.name === 'symbol')
+  const optInterval = source.options.find((opt) => opt.name === 'interval')
+  const optTheme = source.options.find((opt) => opt.name === 'theme')
 
   return Object.assign(
     {},

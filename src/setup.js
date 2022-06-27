@@ -2,7 +2,8 @@ import fs from 'fs'
 import toml from 'toml'
 import axios from 'axios'
 
-import { INVITE, PRICE, CHART } from '../src/enum/commands.js'
+import { THEMES } from '../src/enum/tradingview.js'
+import { INVITE, PRICE } from '../src/enum/commands.js'
 
 import config from '../config.json' assert { type: 'json' }
 
@@ -11,9 +12,9 @@ const wrangler = toml.parse(fs.readFileSync('./wrangler.toml', 'utf-8'))
 
 const { DISCORD_APPLICATION_ID, DISCORD_TOKEN } = env ? wrangler.env[env].vars : wrangler.vars
 
-setupConfigPrice(PRICE)
+setupConfigPrice()
 
-apiPutRegisterCommands('commands', [INVITE, PRICE, CHART]).catch((error) => {
+putRegisterCommands('commands', [INVITE, PRICE]).catch((error) => {
   if (error.response?.data) {
     const { code, message, errors } = error.response.data
     console.error(JSON.stringify(errors))
@@ -22,50 +23,54 @@ apiPutRegisterCommands('commands', [INVITE, PRICE, CHART]).catch((error) => {
 })
 
 /**
- * @param {Object} price
+ * warn: modify enum commands price
  */
-function setupConfigPrice(price) {
-  price.type = 1
-  price.options = [
+function setupConfigPrice() {
+  PRICE.options = [
     {
-      name: 'symbol',
-      description: 'Tradingview symbol',
-      type: 3,
-      required: false,
-      choices: config.price.inputs.map((input) => {
+      name: 'source',
+      description: 'Tradingview Price Source',
+      type: 2,
+      options: config.sources.map((source) => {
         return {
-          name: input.name,
-          value: input.symbol,
+          name: source.name,
+          description: source.description,
+          type: 1,
+          options: [
+            {
+              name: 'symbol',
+              description: 'Tradingview price symbol',
+              type: 3,
+              required: true,
+              choices: source.inputs.map((input) => {
+                return {
+                  name: input.name,
+                  value: input.symbol,
+                }
+              }),
+            },
+            {
+              name: 'interval',
+              description: 'Tradingview price interval',
+              type: 3,
+              required: false,
+              choices: config.price.intervals.map((interval) => {
+                return {
+                  name: interval,
+                  value: interval,
+                }
+              }),
+            },
+            {
+              name: 'theme',
+              description: 'Tradingview price theme',
+              type: 3,
+              required: false,
+              choices: THEMES,
+            },
+          ],
         }
       }),
-    },
-    {
-      name: 'interval',
-      description: 'Tradingview interval',
-      type: 3,
-      required: false,
-      choices: config.price.intervals.map((interval) => {
-        return {
-          name: interval,
-          value: interval,
-        }
-      }),
-    },
-    {
-      name: 'theme',
-      description: 'Tradingview theme',
-      type: 3,
-      required: false,
-      choices: [
-        {
-          name: 'Dark',
-          value: 'dark',
-        },
-        {
-          name: 'Light',
-          value: 'light',
-        },
-      ],
     },
   ]
 }
@@ -75,7 +80,7 @@ function setupConfigPrice(price) {
  * @param {Object} payload
  * @returns {Promise}
  */
-function apiPutRegisterCommands(method, payload) {
+function putRegisterCommands(method, payload) {
   return axios.put(`https://discord.com/api/v10/applications/${DISCORD_APPLICATION_ID}/${method}`, payload, {
     headers: {
       'Content-Type': 'application/json',
