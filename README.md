@@ -76,6 +76,8 @@ Enter a secret value: ****************************************
 
 ### Register Slash Commands
 
+Register Discord slash commands.
+
 `npm run setup:production`
 
 ```
@@ -86,6 +88,8 @@ $ npm run setup:production
 
 (node:8118) ExperimentalWarning: Importing JSON modules is an experimental feature. This feature could change at any time
 (Use `node --trace-warnings ...` to show where the warning was created)
+
+? Enter DISCORD_TOKEN secret value :  [input is hidden]
 ```
 
 ### Publish Cloudflare Worker
@@ -117,11 +121,15 @@ Published chart-img-discord-bot-production (0.22 sec)
   chart-img-discord-bot-production.YOUR_ID.workers.dev
 ```
 
-### Set Discrod Interactions Endpoint URL
+### Set Discord Interactions Endpoint URL
 
 Set your Interactions Endpoint URL `https://chart-img-discord-bot-production.YOUR_ID.workers.dev` from the previous step.
 
 ![general_info](doc/general_info.png?raw=true)
+
+## Invite URL Generator
+
+![invite_url](doc/invite_url.png?raw=true)
 
 ## Features
 
