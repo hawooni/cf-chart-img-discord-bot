@@ -1,27 +1,46 @@
 import fs from 'fs'
 import toml from 'toml'
 import axios from 'axios'
+import inquirer from 'inquirer'
 
-import { THEMES, ADVANCED_STYLES } from '../src/enum/tradingview.js'
 import { INVITE, PRICE, CHART } from '../src/enum/commands.js'
+import { THEMES, ADVANCED_STYLES } from '../src/enum/tradingview.js'
 
 import config from '../config.json' assert { type: 'json' }
 
 const env = process.argv[3] // eg. node src/setup.js --env production | undefined
 const wrangler = toml.parse(fs.readFileSync('./wrangler.toml', 'utf-8'))
 
-const { DISCORD_APPLICATION_ID, DISCORD_TOKEN } = env ? wrangler.env[env].vars : wrangler.vars
+const { DISCORD_APPLICATION_ID } = env ? wrangler.env[env].vars : wrangler.vars
 
-setupConfigPrice()
-setupConfigChart()
+console.log('\n')
 
-putRegisterCommands('commands', [INVITE, PRICE, CHART]).catch((error) => {
-  if (error.response?.data) {
-    const { code, message, errors } = error.response.data
-    console.error(JSON.stringify(errors))
-    console.error(`${message} ${code ? code : ''}`)
-  }
-})
+if (DISCORD_APPLICATION_ID && DISCORD_APPLICATION_ID.length > 0) {
+  inquirer
+    .prompt([
+      {
+        type: 'password',
+        name: 'token',
+        message: 'Enter DISCORD_TOKEN secret value : ',
+      },
+    ])
+    .then((answer) => {
+      setupConfigPrice()
+      setupConfigChart()
+      return putRegisterCommands('commands', [INVITE, PRICE, CHART], answer.token)
+    })
+    .catch((error) => {
+      if (error.response?.data) {
+        const { code, message, errors } = error.response.data
+        errors && console.error(JSON.stringify(errors))
+        console.error(`${message} ${code ? code : ''}`)
+      } else {
+        console.error(error.message || error)
+      }
+    })
+} else {
+  console.error('wrangler.toml DISCORD_APPLICATION_ID value is required.')
+}
 
 /**
  * warn: modify enum commands price
@@ -146,13 +165,14 @@ function setupConfigChart() {
 /**
  * @param {String} method
  * @param {Object} payload
+ * @param {String} token
  * @returns {Promise}
  */
-function putRegisterCommands(method, payload) {
+function putRegisterCommands(method, payload, token) {
   return axios.put(`https://discord.com/api/v10/applications/${DISCORD_APPLICATION_ID}/${method}`, payload, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bot ${DISCORD_TOKEN}`,
+      Authorization: `Bot ${token}`,
     },
   })
 }
