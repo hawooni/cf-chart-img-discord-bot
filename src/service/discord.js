@@ -65,9 +65,9 @@ export const patchChartInteraction = async (data, token, env) => {
  * @returns {Object}
  */
 function getPriceQuery(data) {
-  const optSymbol = getDataPresetOptName(data, 'symbol')
-  const optInterval = getDataPresetOptName(data, 'interval')
-  const optTheme = getDataPresetOptName(data, 'theme')
+  const optSymbol = getDataFirstOptName(data, 'symbol')
+  const optInterval = getDataFirstOptName(data, 'interval')
+  const optTheme = getDataFirstOptName(data, 'theme')
 
   return Object.assign(
     {},
@@ -83,11 +83,11 @@ function getPriceQuery(data) {
  * @returns {object}
  */
 function getChartQuery(data) {
-  const optSymbol = getDataPresetOptName(data, 'symbol')
-  const optInterval = getDataPresetOptName(data, 'interval')
-  const optStudies = getDataPresetOptName(data, 'studies')
-  const optStyle = getDataPresetOptName(data, 'style')
-  const optTheme = getDataPresetOptName(data, 'theme')
+  const optSymbol = getDataFirstOptName(data, 'symbol')
+  const optInterval = getDataFirstOptName(data, 'interval')
+  const optStudies = getDataFirstOptName(data, 'studies')
+  const optStyle = getDataFirstOptName(data, 'style')
+  const optTheme = getDataFirstOptName(data, 'theme')
 
   return Object.assign(
     {},
@@ -117,17 +117,12 @@ function getChartCaption(query) {
 }
 
 /**
- * @param {Object} data
+ * @param {Object} data eg. first data name => query, crypto, stock, forex, ...
  * @param {String} optName
  * @returns {String|null}
  */
-function getDataPresetOptName(data, optName) {
-  const preset = data.options?.find((opt) => opt.name === 'preset')?.options[0] // crypto, stock, forex, ...
-
-  if (preset) {
-    return preset.options.find((opt) => opt.name === optName) || null
-  }
-  return null
+function getDataFirstOptName(data, optName) {
+  return data.options[0]?.options.find((opt) => opt.name === optName) || null
 }
 
 /**
@@ -170,8 +165,8 @@ function patchInteractionAttachImage(appId, token, attachImage, caption) {
  * @returns {String}
  */
 function getErrorMessage(status, payload) {
-  console.error(`getErrorMessage(${status}, payload)`)
-  payload && console.error(payload)
+  console.log(`getErrorMessage(${status}, payload)`)
+  payload && console.log(payload)
 
   if (status === 422) {
     return (payload && payload.error) || MESSAGE.invalid

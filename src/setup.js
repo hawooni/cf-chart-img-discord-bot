@@ -13,7 +13,19 @@ const wrangler = toml.parse(fs.readFileSync('./wrangler.toml', 'utf-8'))
 
 const { DISCORD_APPLICATION_ID } = env ? wrangler.env[env].vars : wrangler.vars
 
-console.log('\n')
+const PRICE_INTERVALS = config.price.intervals.map((interval) => {
+  return {
+    name: interval,
+    value: interval,
+  }
+})
+
+const CHART_INTERVALS = config.chart.intervals.map((interval) => {
+  return {
+    name: interval,
+    value: interval,
+  }
+})
 
 if (DISCORD_APPLICATION_ID && DISCORD_APPLICATION_ID.length > 0) {
   inquirer
@@ -48,50 +60,67 @@ if (DISCORD_APPLICATION_ID && DISCORD_APPLICATION_ID.length > 0) {
 function setupConfigPrice() {
   PRICE.options = [
     {
-      name: 'preset',
-      description: 'Tradingview Price Preset',
-      type: 2,
-      options: config.presets.map((preset) => {
-        return {
-          name: preset.name,
-          description: preset.description,
-          type: 1,
-          options: [
-            {
-              name: 'symbol',
-              description: 'Tradingview Price symbols',
-              type: 3,
-              required: true,
-              choices: preset.inputs.map((input) => {
-                return {
-                  name: input.name,
-                  value: input.symbol,
-                }
-              }),
-            },
-            {
-              name: 'interval',
-              description: 'Tradingview Price Intervals',
-              type: 3,
-              required: false,
-              choices: config.price.intervals.map((interval) => {
-                return {
-                  name: interval,
-                  value: interval,
-                }
-              }),
-            },
-            {
-              name: 'theme',
-              description: 'Tradingview Price Themes',
-              type: 3,
-              required: false,
-              choices: THEMES,
-            },
-          ],
-        }
-      }),
+      name: 'query',
+      description: 'Tradingview Query',
+      type: 1,
+      options: [
+        {
+          name: 'symbol',
+          description: 'Tradingview Price symbols',
+          type: 3,
+          required: true,
+        },
+        {
+          name: 'interval',
+          description: 'Tradingview Price Intervals',
+          type: 3,
+          required: false,
+          choices: PRICE_INTERVALS,
+        },
+        {
+          name: 'theme',
+          description: 'Tradingview Price Themes',
+          type: 3,
+          required: false,
+          choices: THEMES,
+        },
+      ],
     },
+    ...config.presets.map((preset) => {
+      return {
+        name: preset.name,
+        description: preset.description,
+        type: 1,
+        options: [
+          {
+            name: 'symbol',
+            description: 'Tradingview Price symbols',
+            type: 3,
+            required: true,
+            choices: preset.inputs.map((input) => {
+              return {
+                name: input.name,
+                value: input.symbol,
+              }
+            }),
+          },
+          {
+            name: 'interval',
+            description: 'Tradingview Price Intervals',
+            type: 3,
+            required: false,
+            choices: PRICE_INTERVALS,
+          },
+          {
+            name: 'theme',
+            description: 'Tradingview Price Themes',
+            type: 3,
+            required: false,
+            choices: THEMES,
+          },
+        ],
+      }
+    }),
   ]
 }
 
@@ -101,64 +130,94 @@ function setupConfigPrice() {
 function setupConfigChart() {
   CHART.options = [
     {
-      name: 'preset',
-      description: 'Tradingview Chart Preset',
-      type: 2,
-      options: config.presets.map((preset) => {
-        return {
-          name: preset.name,
-          description: preset.description,
-          type: 1,
-          options: [
-            {
-              name: 'symbol',
-              description: 'Tradingview Chart Symbols',
-              type: 3,
-              required: true,
-              choices: preset.inputs.map((input) => {
-                return {
-                  name: input.name,
-                  value: input.symbol,
-                }
-              }),
-            },
-            {
-              name: 'interval',
-              description: 'Tradingview Chart Intervals',
-              type: 3,
-              required: false,
-              choices: config.chart.intervals.map((interval) => {
-                return {
-                  name: interval,
-                  value: interval,
-                }
-              }),
-            },
-            {
-              name: 'studies',
-              description: 'Tradingview Chart Studies',
-              type: 3,
-              required: false,
-              choices: config.chart.studies,
-            },
-            {
-              name: 'style',
-              description: 'Tradingview Chart Styles',
-              type: 3,
-              required: false,
-              choices: ADVANCED_STYLES,
-            },
-            {
-              name: 'theme',
-              description: 'Tradingview Chart Themes',
-              type: 3,
-              required: false,
-              choices: THEMES,
-            },
-          ],
-        }
-      }),
+      name: 'query',
+      description: 'Tradingview Query',
+      type: 1,
+      options: [
+        {
+          name: 'symbol',
+          description: 'Tradingview Chart Symbols',
+          type: 3,
+          required: true,
+        },
+        {
+          name: 'interval',
+          description: 'Tradingview Chart Intervals',
+          type: 3,
+          required: false,
+          choices: CHART_INTERVALS,
+        },
+        {
+          name: 'studies',
+          description: 'Tradingview Chart Studies',
+          type: 3,
+          required: false,
+        },
+        {
+          name: 'style',
+          description: 'Tradingview Chart Styles',
+          type: 3,
+          required: false,
+          choices: ADVANCED_STYLES,
+        },
+        {
+          name: 'theme',
+          description: 'Tradingview Chart Themes',
+          type: 3,
+          required: false,
+          choices: THEMES,
+        },
+      ],
     },
+    ...config.presets.map((preset) => {
+      return {
+        name: preset.name,
+        description: preset.description,
+        type: 1,
+        options: [
+          {
+            name: 'symbol',
+            description: 'Tradingview Chart Symbols',
+            type: 3,
+            required: true,
+            choices: preset.inputs.map((input) => {
+              return {
+                name: input.name,
+                value: input.symbol,
+              }
+            }),
+          },
+          {
+            name: 'interval',
+            description: 'Tradingview Chart Intervals',
+            type: 3,
+            required: false,
+            choices: CHART_INTERVALS,
+          },
+          {
+            name: 'studies',
+            description: 'Tradingview Chart Studies',
+            type: 3,
+            required: false,
+            choices: config.chart.studies,
+          },
+          {
+            name: 'style',
+            description: 'Tradingview Chart Styles',
+            type: 3,
+            required: false,
+            choices: ADVANCED_STYLES,
+          },
+          {
+            name: 'theme',
+            description: 'Tradingview Chart Themes',
+            type: 3,
+            required: false,
+            choices: THEMES,
+          },
+        ],
+      }
+    }),
   ]
 }
 
