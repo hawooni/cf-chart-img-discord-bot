@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2022-06-29
+
+### Added
+
+- Slash command query.
+
+### Changed
+
+- Slash command preset to direct preset name.
+- package.json script command name change publish to deploy.
+
 ## [0.2.0] - 2022-06-28
 
 ### Added
