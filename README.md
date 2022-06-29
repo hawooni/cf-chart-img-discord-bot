@@ -8,11 +8,39 @@ It is a simple Discord bot based on [CHART-IMG](https://doc.chart-img.com) API w
 
 You are welcome to use this bot if you don't want to customize your own. It will always run with the latest version.
 
+## Features
+
+### Slash Commands
+
+Slash Commands are the new, exciting way to interact with bots on Discord. With Slash Commands, all you have to do is type `/` and you're ready to use your preset commands.
+
+![general_info](doc/price_crypto.png?raw=true)
+![general_info](doc/chart_crypto.png?raw=true)
+![general_info](doc/chart_query.png?raw=true)
+
+#### Main slash commands
+
+- `/invite`
+- `/price query`
+- `/chart query`
+
+#### Preset slash commands
+
+You can customize the commands by modifying `config.json`.
+
+- `/price crypto`
+- `/price stock`
+- `/price forex`
+- `/chart query`
+- `/chart crypto`
+- `/chart stock`
+- `/chart forex`
+
 ## Requirement
 
-- [Cloudflare](https://workers.cloudflare.com) Account
-- [CHART-IMG](https://chart-img.com) Account API Key `CHART_IMG_API_KEY`
-- [Discord](https://discord.com/developers/applications) Discrod Developer Portal `DISCORD_APPLICATION_ID`, `DISCORD_PUBLIC_KEY`, `DISCORD_TOKEN`
+- [Cloudflare](https://workers.cloudflare.com) Account for the serverless workers
+- [CHART-IMG](https://chart-img.com) Account for API Key `CHART_IMG_API_KEY`
+- [Discord Developer Portal](https://discord.com/developers/applications) for `DISCORD_APPLICATION_ID`, `DISCORD_PUBLIC_KEY`, `DISCORD_TOKEN`
 
 ## Setup
 
@@ -42,6 +70,7 @@ To start, you need to create a discord app through the [Discord Developer Dashbo
 ### wrangler.toml
 
 ```
+[env.production.vars]
 DISCORD_APPLICATION_ID = "YOUR_DISCORD_APPLICATION_ID"
 DISCORD_PUBLIC_KEY = "YOUR_DISCORD_PUBLIC_KEY"
 ```
@@ -86,9 +115,6 @@ $ npm run setup:production
 > cf-chart-img-discord-bot@0.1.0 setup:production
 > node src/setup.js --env production
 
-(node:8118) ExperimentalWarning: Importing JSON modules is an experimental feature. This feature could change at any time
-(Use `node --trace-warnings ...` to show where the warning was created)
-
 ? Enter DISCORD_TOKEN secret value :  [input is hidden]
 ```
 
@@ -96,7 +122,7 @@ $ npm run setup:production
 
 Publish your Cloudflare Worker and get a invoke URL.
 
-`npm run publish:production`
+`npm run deploy:production`
 
 ```
 $ npm run publish:production
@@ -130,17 +156,3 @@ Set your Interactions Endpoint URL `https://chart-img-discord-bot-production.YOU
 ## Invite URL Generator
 
 ![invite_url](doc/invite_url.png?raw=true)
-
-## Features
-
-### Slash Commands
-
-Slash Commands are the new, exciting way to build and interact with bots on Discord. With Slash Commands, all you have to do is type `/` and you're ready to use your preset commands.
-
-- `/invite`
-- `/price preset crypto`
-- `/price preset stock`
-- `/price preset forex`
-- `/chart preset crypto`
-- `/chart preset stock`
-- `/chart preset forex`
